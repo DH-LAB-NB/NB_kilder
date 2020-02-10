@@ -35,7 +35,7 @@ def file_contents(name, zipfolder):
 
 def extract_text(file, zipfolder):
     text = []
-    soup = BeautifulSoup(file_contents(file, zipfolder), 'lxml')
+    soup = BeautifulSoup(file_contents(file, zipfolder), 'html')
     for node in soup.find_all('div', {"type":"chapter", "subtype":"source"}):
         for p in node.find_all(['p', 'head']):
             text.append(tokenize(p.text))
@@ -43,7 +43,7 @@ def extract_text(file, zipfolder):
 
 def extract_text_as_string(file, zipfolder):
     text = []
-    soup = BeautifulSoup(file_contents(file, zipfolder), 'lxml')
+    soup = BeautifulSoup(file_contents(file, zipfolder), 'html')
     for node in soup.find_all('div', {"type":"chapter", "subtype":"source"}):
         for p in node.find_all(['p', 'head']):
             text.append(p.text)
