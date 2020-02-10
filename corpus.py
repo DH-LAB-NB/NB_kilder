@@ -147,7 +147,7 @@ def konk_regex(regex, korpus, before=30, after=30, colour='red'):
 
 
 
-def korpus_konk(phrase, korpus, before = 10, after = 10):
+def korpus_konk(phrase, korpus, before = 10, after = 10, colour='red'):
     actual_konk = konk(phrase, korpus)
     result = ["### Konkordanser for *" + ' '.join(phrase) + "*" ]
     for i in actual_konk:
@@ -159,6 +159,9 @@ def korpus_konk(phrase, korpus, before = 10, after = 10):
                 parahits = hit[1]
                 konkstring = []
                 for y in parahits:
-                    konkstring.append(str(para) + ": " + ' '.join(korpus[i][para][y - before : y+after]))
+                    res = str(para) + ": " + ' '.join(korpus[i][para][y - before : y+after])
+                    for v in phrase:
+                        res = res.replace(' '+v+' ', " <span style='color:{c}'>".format(c=colour) +v+ "</span> ")
+                    konkstring.append(res)
                 result += konkstring
     return result
